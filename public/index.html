@@ -53,19 +53,5 @@
 <script src="main/main.Ctrl.js"></script>
 <script src="components/socket.Srvc.js"></script>
 
-
-<script>
-  var socket = io ('https://websocket.btcc.com/');
-
-  socket.emit('subscribe', 'marketdata_cnybtc');
-
-  socket.on('connect', function () {
-    socket.on('ticker', function (data) {
-      console.log(data);
-
-  });
-</script>
-
-
 </body>
 </html>
