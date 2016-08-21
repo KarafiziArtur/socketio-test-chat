@@ -1,66 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Socket IO Test Chat</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-<div class="container">
-  <div class="header col-md-12">
-    <div class="row bg-primary">
-      <div class="col-md-4">
-        <h1>Market</h1>
-        <h2 id="market"></h2>
+<body ng-app="app">
+
+<div class="header">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Socket.io Chat</a>
       </div>
-      <div class="col-md-4">
-        <h1>High</h1>
-        <h2 id="high-count"></h2>
-      </div>
-      <div class="col-md-4">
-        <h1>Low</h1>
-        <h2 id="low-count"></h2>
-      </div>
-    </div>
-  </div>
-  <div class="main col-md-12">
-    <div class="row">
-      <div class="col-md-6">
-        <h3 class="text-primary">Recent Trades</h3>
-        <table class="table">
-          <tr>
-            <th>Buy</th>
-            <td>
-              <p id="buy"></p>
-            </td>
-            <th>Sell</th>
-            <td>
-              <p id="sell"></p>
-            </td>
-          </tr>
-          </thead>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <h3 class="text-primary">Trade Volume</h3>
-        <table class="table">
-          <tr>
-            <th>Volume</th>
-            <td>
-              <p id="volume"></p>
-            </td>
-          </tr>
-        </table>
+      <div class="collapse navbar-collapse" id="js-navbar-collapse">
       </div>
     </div>
   </div>
 </div>
+<div class="container">
+  <div ng-view></div>
+</div>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+
+<!-- Bower Components -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/ng-lodash/build/ng-lodash.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+
+<!-- JavaScripts -->
+<script src="app.js"></script>
+<script src="join/join.Ctrl.js"></script>
+<script src="main/main.Ctrl.js"></script>
+<script src="components/socket.Srvc.js"></script>
+
+
 <script>
   var socket = io ('https://websocket.btcc.com/');
 
@@ -70,22 +63,9 @@
     socket.on('ticker', function (data) {
       console.log(data);
 
-      // Update Market name
-      $('#market').text(data.ticker.market);
-      // Update High selling price
-      $('#high-count').text(data.ticker.high);
-      // Update Low selling price
-      $('#low-count').text(data.ticker.low);
-
-      // Update Buy price
-      $('#buy').text(data.ticker.buy);
-      // Update Sell price
-      $('#sell').text(data.ticker.sell);
-      // Update Volume
-      $('#volume').text(data.ticker.vol);
-    });
-
   });
 </script>
+
+
 </body>
 </html>
